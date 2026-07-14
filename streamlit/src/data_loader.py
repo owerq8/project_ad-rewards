@@ -1,27 +1,20 @@
 """Parquet 데이터 로딩 + Streamlit 캐싱"""
 import os
-import datetime
 import pandas as pd
 import streamlit as st
 from src.config import DATA_DIR, ANALYSIS_DATE_START, ANALYSIS_DATE_END
 
-# PyArrow filters용 date 객체 (date32[day] 컬럼과 타입 일치)
-_DATE_START = pd.Timestamp(ANALYSIS_DATE_START).date()
-_DATE_END = pd.Timestamp(ANALYSIS_DATE_END).date()
+_DATE_START = pd.Timestamp(ANALYSIS_DATE_START)
+_DATE_END = pd.Timestamp(ANALYSIS_DATE_END)
 
 
 @st.cache_resource(show_spinner="데이터 로딩 중...")
 def load_hourly_report() -> pd.DataFrame:
     path = os.path.join(DATA_DIR, "hourly_report.parquet")
-    df = pd.read_parquet(
-        path,
-        filters=[
-            ("rpt_time_date", ">=", _DATE_START),
-            ("rpt_time_date", "<=", _DATE_END),
-        ],
-    )
+    df = pd.read_parquet(path)
     df["rpt_time_date"] = pd.to_datetime(df["rpt_time_date"])
-    return df
+    mask = (df["rpt_time_date"] >= _DATE_START) & (df["rpt_time_date"] <= _DATE_END)
+    return df[mask].copy()
 
 
 @st.cache_resource(show_spinner="광고 속성 로딩 중...")
