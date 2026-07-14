@@ -206,6 +206,9 @@ if view_mode == "전체 기간":
             classification=classification,
             page_name="전체 오버뷰",
             threshold_key=_p1_thr_key,
+            sched_agg_precomp=st.session_state.get("sched_agg"),
+            early_click_precomp=st.session_state.get("early_click_df"),
+            master_cols_precomp=st.session_state.get("master_cols"),
         )
         render_ml_recommendation_banner(_p1_insight, page_key="p1")
 
