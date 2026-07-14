@@ -1,8 +1,12 @@
-# Large data files
-DATA/
+# Large data files (루트 디렉토리의 DATA/ 만 제외)
+/DATA/
 
-# Parquet data files (LFS pointer files, not actual data)
-*.parquet
+# 앱에서 사용하지 않는 대용량 parquet (배포 제외)
+streamlit/data/ads_join_info_labeled.parquet
+streamlit/data/finance_clean1.parquet
+streamlit/data/finance_clean2.parquet
+streamlit/data/user_daily_activity_clean.parquet
+streamlit/data/price_agg.parquet
 
 # Python
 __pycache__/
