@@ -1,6 +1,9 @@
 # Large data files (루트 디렉토리의 DATA/ 만 제외)
 /DATA/
 
+# 실수로 복사된 중첩 폴더 (nested git repo)
+streamlit/streamlit/
+
 # 앱에서 사용하지 않는 대용량 parquet (배포 제외)
 streamlit/data/ads_join_info_labeled.parquet
 streamlit/data/finance_clean1.parquet
