@@ -1,10 +1,13 @@
 """공통 필터 렌더링 (Page 2/3/4 상단 필터 영역)"""
 import calendar as _cal
 import datetime as _dt
+from pathlib import Path
 
 import streamlit as st
 import pandas as pd
 from src.config import COLORS, sort_chips, PERIOD_OPTIONS, DEFAULT_PERIOD
+
+_LOGO_PATH = str(Path(__file__).parent.parent / "assets" / "logo.png")
 
 
 # ---------------------------------------------------------------------------
@@ -53,7 +56,7 @@ _CALENDAR_CSS = """<style>
 
 def render_page_header(title: str):
     """페이지 헤더 + 오버뷰 돌아가기 버튼"""
-    st.image("assets/logo.png", width=120)
+    st.image(_LOGO_PATH, width=120)
     col1, col2 = st.columns([9, 1])
     with col1:
         st.markdown(f"## {title}")
